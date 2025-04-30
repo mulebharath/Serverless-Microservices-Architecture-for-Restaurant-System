@@ -1,51 +1,79 @@
 /* Global Styles */
 html, body {
-    height: 100%;  /* Ensure full viewport height */
+    height: 100%;  
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #3498db, #e84393);
+    color: #fff;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;  /* Remove default margin */
-    padding: 20px;  /* Add some padding for content */
-    background: linear-gradient(to bottom, #3498db, #e84393);  /* Blue to pink gradient */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+.header h1 {
+    font-size: 36px;
+    text-align: center;
     color: #fff;
-    display: flex;
-    flex-direction: column;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+/* Section Styles */
+section {
+    margin-top: 40px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
 }
 
 h2, h3 {
-    margin-top: 30px;
+    font-size: 24px;
+    margin-bottom: 10px;
 }
 
-input, select, button {
-    padding: 10px;
-    margin: 5px 0;
-    border: none;
+/* Input and Button Styles */
+.input-field, .btn {
+    padding: 12px;
+    margin: 10px 0;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.1);
     color: #fff;
+    width: 100%;
 }
 
-button {
+.input-field:focus, .btn:hover {
     background: rgba(255, 255, 255, 0.2);
+    outline: none;
+}
+
+.btn {
+    background-color: #f39c12;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background: rgba(255, 255, 255, 0.3);
+.btn:hover {
+    background-color: #e67e22;
 }
 
-ul {
+/* Orders and Bills List Styles */
+.orders-list {
     list-style-type: none;
     padding: 0;
 }
 
-li {
+.orders-list li {
+    background-color: rgba(0, 0, 0, 0.3);
     padding: 10px;
     margin: 5px 0;
-    background: rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
 
@@ -59,26 +87,23 @@ li {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 1000;
-    justify-content: center;  /* This will center the modal-content vertically */
-    align-items: center;      /* This will center the modal-content horizontally */
-    display: flex;            /* This enables flexbox */
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
-
 
 .modal-content {
     background-color: rgba(0, 0, 0, 0.5);
-    padding: 20px;
+    padding: 30px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
-    width: 30%;
+    width: 50%;
     position: relative;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
-
-
 .close-button {
-    color: #aaaaaa;
+    color: #aaa;
     position: absolute;
     top: 5px;
     right: 10px;
@@ -87,9 +112,8 @@ li {
     background: none;
     border: none;
     cursor: pointer;
-    outline: none;
 }
 
-.close-button:hover, .close-button:focus {
+.close-button:hover {
     color: #fff;
 }

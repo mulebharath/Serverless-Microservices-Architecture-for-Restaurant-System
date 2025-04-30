@@ -8,43 +8,57 @@
 </head>
 <body>
 
+    <header class="header">
+        <div class="container">
+            <marquee><h1>Fantastic 4's Project</h1></marquee>
+        </div>
+    </header>
 
-<center><marquee><h1> Fantastic 4's Project</h1></marquee></center>
+    <main class="container">
+        <!-- Place Order Section -->
+        <section class="order-section">
+            <h2>Place an Order</h2>
+            <div class="form-group">
+                <input type="text" id="order-item" placeholder="Item" class="input-field">
+                <input type="number" id="order-quantity" placeholder="Quantity" class="input-field">
+            </div>
+            <button onclick="placeOrder()" class="btn">Place Order</button>
+        </section>
 
-<!-- Place Order Section -->
-<h2>Place an Order</h2>
-<input type="text" id="order-item" placeholder="Item">
-<input type="number" id="order-quantity" placeholder="Quantity">
-<button onclick="placeOrder()">Place Order</button>
+        <!-- Orders Section -->
+        <section class="orders-section">
+            <h2>Current Orders (Cooking):</h2>
+            <ul id="orders-list" class="orders-list"></ul>
+        </section>
 
-<!-- Orders (Cooking) Section -->
-<h2>Current Orders (Cooking):</h2>
-<ul id="orders-list"></ul>
+        <!-- Generate Bill Section -->
+        <section class="bill-section">
+            <button onclick="openBillModal()" class="btn">Generate Bill</button>
+        </section>
 
-<!-- Generate Bill Button -->
-<button onclick="openBillModal()">Generate Bill</button>
+        <!-- Billing Modal -->
+        <div id="bill-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeBillModal()">&times;</span>
+                <h2>Generate Bill</h2>
+                <label for="order-bill">Select Order:</label>
+                <select id="order-bill" class="input-field"></select>
+                <br>
+                <label for="bill-amount">Amount:</label>
+                <input type="number" id="bill-amount" placeholder="Amount" class="input-field">
+                <br>
+                <button onclick="createBill()" class="btn">Add Bill</button>
+            </div>
+        </div>
 
-<!-- Billing Modal -->
-<div id="bill-modal" class="modal">
-    <div class="modal-content">
-        <span class="close-button" onclick="closeBillModal()">&times;</span>
-        <h2>Generate Bill</h2>
-        <label for="order-bill">Select Order:</label>
-        <select id="order-bill"></select>
-        <br>
-        <label for="bill-amount">Amount:</label>
-        <input type="number" id="bill-amount" placeholder="Amount">
-        <br>
-        <button onclick="createBill()">Add Bill</button>
-    </div>
-</div>
+        <!-- Bills Section -->
+        <section class="bills-section">
+            <h3>Bills:</h3>
+            <ul id="bills-list" class="orders-list"></ul>
+        </section>
+    </main>
 
-
-<!-- Bills Section -->
-<h3>Bills:</h3>
-<ul id="bills-list"></ul>
-
-<script src="scripts.js"></script>
+    <script src="scripts.js"></script>
 
 </body>
 </html>

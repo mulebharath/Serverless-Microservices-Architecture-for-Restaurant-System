@@ -1,4 +1,5 @@
 const API_ENDPOINT = 'http://localhost:3001';
+const BILLING_API_ENDPOINT = 'http://localhost:3003'; // Define billing API endpoint
 
 // Function to place an order
 function placeOrder() {
@@ -28,7 +29,12 @@ function placeOrder() {
 // Function to load the orders (which are automatically cooking)
 function loadOrders() {
     fetch(`${API_ENDPOINT}/orders`)
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to load orders');
+        }
+        return response.json();
+    })
     .then(data => {
         // Populate the orders list (cooking)
         const list = document.getElementById('orders-list');
@@ -48,6 +54,9 @@ function loadOrders() {
             option.textContent = `Order ID: ${order.id} - Item: ${order.item}`;
             dropdown.appendChild(option);
         });
+    })
+    .catch(error => {
+        alert('Error loading orders: ' + error.message);
     });
 }
 
@@ -67,10 +76,15 @@ function closeBillModal() {
 // Function to create a bill for a selected order
 function createBill() {
     const orderID = document.getElementById('order-bill').value;
-    const amount  = document.getElementById('bill-amount').value;
+    const amount = document.getElementById('bill-amount').value;
 
     if (!orderID) {
         alert('Please select an order.');
+        return;
+    }
+
+    if (!amount || isNaN(amount) || parseInt(amount, 10) <= 0) {
+        alert('Please enter a valid amount.');
         return;
     }
 
@@ -80,8 +94,8 @@ function createBill() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            order_id: parseInt(orderID, 10),  // Ensure the order_id is a number
-            amount : parseInt(amount, 10)
+            order_id: parseInt(orderID, 10), // Ensure the order_id is a number
+            amount: parseInt(amount, 10)
         })
     })
     .then(response => {
@@ -105,7 +119,12 @@ function createBill() {
 // Function to load and display all the bills
 function loadBills() {
     fetch(`${BILLING_API_ENDPOINT}/billing`)
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to load bills');
+        }
+        return response.json();
+    })
     .then(data => {
         const list = document.getElementById('bills-list');
         list.innerHTML = '';
@@ -114,16 +133,27 @@ function loadBills() {
             li.textContent = `Bill ID: ${bill.id}, Order ID: ${bill.order_id}, Amount: $${bill.amount}`;
             list.appendChild(li);
         });
+    })
+    .catch(error => {
+        alert('Error loading bills: ' + error.message);
     });
 }
 
-// Close the modal when clicking outside of it
+// Close the modal when clicking outside of it or pressing ESC
 window.onclick = function(event) {
     const modal = document.getElementById('bill-modal');
     if (event.target === modal) {
         modal.style.display = "none";
     }
 }
+
+// Close the modal if ESC key is pressed
+window.addEventListener('keydown', function(event) {
+    const modal = document.getElementById('bill-modal');
+    if (event.key === "Escape") {
+        modal.style.display = "none";
+    }
+});
 
 // Load orders and bills on page load
 window.onload = () => {
