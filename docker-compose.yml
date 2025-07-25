@@ -1,50 +1,48 @@
-version: '3.8'
-
 services:
-  order-service:
-    image: nikhilmarna/orderservice:latest
-    ports:
-      - "3001:3001"
-    networks:
-      - restaurant-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
-      interval: 30s
-      retries: 3
-
-  bill-service:
-    image: nikhilmarna/billservice:latest
-    ports:
-      - "3002:3002"
-    networks:
-      - restaurant-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3002/health"]
-      interval: 30s
-      retries: 3
-
   cook-service:
-    image: nikhilmarna/cookservices:latest
+    build:
+      context: ./services/cookServices/src
+    container_name: cook-service
     ports:
-      - "3003:3003"
+      - "3001:3000"
     networks:
-      - restaurant-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3003/health"]
-      interval: 30s
-      retries: 3
+      - app-network
 
-  frontend:
-    image: nikhilmarna/frontend:latest
+  order-service:
+    build:
+      context: ./services/orderServices/src
+    container_name: order-service
     ports:
-      - "8081:8080"  # Ensure your frontend is listening on port 8080 inside the container
+      - "3002:3000"
     depends_on:
-      - order-service
-      - bill-service
       - cook-service
     networks:
-      - restaurant-network
+      - app-network
+
+  billing-service:
+    build:
+      context: ./services/billServices/src
+    container_name: billing-service
+    ports:
+      - "3003:3000"
+    depends_on:
+      - order-service
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./services/frontEnd/src
+    container_name: frontend
+    ports:
+      - "8081:80"
+    depends_on:
+      - cook-service
+      - order-service
+      - billing-service
+    networks:
+      - app-network
 
 networks:
-  restaurant-network:
+  app-network:
     driver: bridge
