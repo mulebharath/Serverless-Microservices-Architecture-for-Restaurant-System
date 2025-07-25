@@ -83,7 +83,7 @@ function HomePage() {
         <div className="feature-card" style={{ flex: '1 1 220px', minWidth: 220, background: '#FFF8F0', borderRadius: 18, boxShadow: '0 2px 12px rgba(246, 71, 65, 0.07)', padding: 28, textAlign: 'center' }}>
           <div className="feature-title" style={{ fontSize: 28, fontWeight: 700, color: '#D64541', marginBottom: 10 }}><span className="feature-icon">🌱</span> Fresh & Hygienic</div>
           <div className="feature-desc" style={{ color: '#555' }}>We partner with the best kitchens to ensure every meal is prepared with the highest standards of hygiene and quality.</div>
-        </div>
+      </div>
       </div>
     </>
   );
